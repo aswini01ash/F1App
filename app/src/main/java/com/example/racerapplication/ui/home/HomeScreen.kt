@@ -1,7 +1,6 @@
 package com.example.racerapplication.ui.home
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -39,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.racerapplication.R
 import com.example.racerapplication.data.model.Driver
@@ -85,20 +85,26 @@ fun HomeScreen(
                             onClick = { onNavigateToDetail(race) },
                             modifier = Modifier
                                 .weight(1f)
-                                .height(120.dp) // match combined height of two right-side cards + spacing
+                                .height(120.dp)
                         )
                     }
 
                     // Right side: Column with Distance and Education
                     Column(
                         modifier = Modifier
+                            .clickable {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    "https://www.instagram.com/boxbox_club/".toUri()
+                                )
+                                context.startActivity(intent)
+                            }
                             .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         uiState.race?.let { race ->
                             RaceDistanceCard(
                                 race = race,
-                                onClick = { onNavigateToDetail(race) },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(55.dp)
@@ -115,7 +121,7 @@ fun HomeScreen(
                                 .clickable {
                                     val intent = Intent(
                                         Intent.ACTION_VIEW,
-                                        Uri.parse("https://blog.boxbox.club/tagged/beginners-guide")
+                                        "https://blog.boxbox.club/tagged/beginners-guide".toUri()
                                     )
                                     context.startActivity(intent)
                                 }
@@ -160,15 +166,7 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .height(200.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .clickable {
-                            val intent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://www.instagram.com/boxbox_club/")
-                            )
-                            context.startActivity(intent)
-                        }
                 ) {
-                    // Background image - replace with your actual image
                     Image(
                         painter = painterResource(id = R.drawable.ic_instagram),
                         contentDescription = "F1 25",
@@ -189,25 +187,6 @@ fun HomeScreen(
                                 )
                             )
                     )
-
-                    // Content
-                    Column(
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(16.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.f1_logo),
-                            contentDescription = "F1 Logo",
-                            modifier = Modifier.height(24.dp)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Image(
-                            painter = painterResource(id = R.drawable.ea_sports_logo), // Add EA Sports logo
-                            contentDescription = "EA Sports",
-                            modifier = Modifier.height(32.dp)
-                        )
-                    }
                 }
             }
         }
@@ -218,14 +197,12 @@ fun HomeScreen(
 @Composable
 fun RaceDistanceCard(
     race: Race,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .height(55.dp)
             .clip(RoundedCornerShape(12.dp))
-            .clickable(onClick = onClick)
     ) {
         // Background split (red/black)
         Row(Modifier.fillMaxSize()) {
@@ -265,11 +242,6 @@ fun RaceDistanceCard(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
-//                Text(
-//                    "km",
-//                    color = Color.White.copy(alpha = 0.7f),
-//                    fontSize = 12.sp
-//                )
             }
         }
     }
