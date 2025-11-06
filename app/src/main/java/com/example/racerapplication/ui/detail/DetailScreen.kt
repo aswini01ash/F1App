@@ -2,21 +2,34 @@ package com.example.racerapplication.ui.detail
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.example.racerapplication.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.racerapplication.R
 import com.example.racerapplication.data.model.Race
 import com.example.racerapplication.data.model.Session
 import com.example.racerapplication.util.DateUtils
@@ -34,8 +47,8 @@ fun DetailScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF009B3A), // Green at top
-                        Color(0xFF000000)  // Black at bottom
+                        Color(0xFF009B3A),
+                        Color(0xFF000000)
                     ),
                     startY = 0f,
                     endY = 800f
@@ -47,7 +60,7 @@ fun DetailScreen(
                 TopAppBar(
                     title = {
                         Text(
-                            "Upcoming race",
+                            stringResource(R.string.upcoming_race),
                             color = Color.White
                         )
                     },
@@ -94,7 +107,7 @@ fun DetailScreen(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        "Circuit Facts",
+                        stringResource(R.string.circuit_facts),
                         color = Color.White,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
@@ -115,7 +128,7 @@ fun DetailScreen(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        "Sessions",
+                        stringResource(R.string.sessions),
                         color = Color.White,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold

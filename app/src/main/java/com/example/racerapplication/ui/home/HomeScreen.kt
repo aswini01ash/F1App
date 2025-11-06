@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,19 +68,16 @@ fun HomeScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
-                // Top Driver Card
                 uiState.driver?.let { driver ->
                     HomeTopSlider(driver = uiState.driver)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Two Cards Row (Race Info + Education)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Left side: Race Info Card
                     uiState.race?.let { race ->
                         RaceInfoCard(
                             race = race,
@@ -90,7 +88,6 @@ fun HomeScreen(
                         )
                     }
 
-                    // Right side: Column with Distance and Education
                     Column(
                         modifier = Modifier
                             .clickable {
@@ -112,7 +109,6 @@ fun HomeScreen(
                             )
                         }
 
-                        // Formula 1 Education Card
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -135,19 +131,19 @@ fun HomeScreen(
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_education_icon),
-                                    contentDescription = "Education",
+                                    contentDescription = stringResource(R.string.education),
                                     tint = Color.White,
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Column {
                                     Text(
-                                        "Formula 1",
+                                        stringResource(R.string.formula_1),
                                         color = Color.White,
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Bold
                                     )
                                     Text(
-                                        "Education",
+                                        stringResource(R.string.education),
                                         color = Color.White,
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Bold
@@ -158,10 +154,8 @@ fun HomeScreen(
                     }
                 }
 
-
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // F1 25 Game Card
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -175,7 +169,6 @@ fun HomeScreen(
                         contentScale = ContentScale.Crop
                     )
 
-                    // Overlay gradient
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -205,7 +198,6 @@ fun RaceDistanceCard(
             .height(55.dp)
             .clip(RoundedCornerShape(12.dp))
     ) {
-        // Background split (red/black)
         Row(Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
@@ -221,7 +213,6 @@ fun RaceDistanceCard(
             )
         }
 
-        // Foreground content
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -238,7 +229,7 @@ fun RaceDistanceCard(
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    "7015.3km",
+                    stringResource(R.string.distance_placeholder),
                     color = Color.White,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -264,7 +255,6 @@ fun DriverCard(driver: Driver) {
                 )
             )
     ) {
-        // Driver image background
         Image(
             painter = painterResource(id = R.drawable.person),
             contentDescription = "Driver",
@@ -281,7 +271,6 @@ fun DriverCard(driver: Driver) {
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-            // Position badge
             Box(
                 modifier = Modifier
                     .background(Color.White.copy(alpha = 0.9f), RoundedCornerShape(8.dp))
@@ -318,15 +307,12 @@ fun DriverCard(driver: Driver) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Driver name - large
             Text(
                 driver.firstName,
                 color = Color.White.copy(alpha = 0.9f),
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Normal
             )
-
-            // Points
             Row(
                 verticalAlignment = Alignment.Bottom,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -340,7 +326,7 @@ fun DriverCard(driver: Driver) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    "PTS",
+                    stringResource(R.string.pts),
                     color = Color.White.copy(alpha = 0.8f),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
@@ -369,14 +355,13 @@ fun RaceInfoCard(
             .padding(12.dp)
     ) {
         Column {
-            // Session name and circuit icon
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_circuit), // Add circuit icon
-                    contentDescription = "Circuit",
+                    painter = painterResource(id = R.drawable.ic_circuit),
+                    contentDescription = stringResource(R.string.circuit),
                     tint = Color.White,
                     modifier = Modifier.size(16.dp)
                 )
@@ -390,19 +375,18 @@ fun RaceInfoCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Race location/distance
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_location), // Add location icon
-                    contentDescription = "Location",
+                    painter = painterResource(id = R.drawable.ic_location),
+                    contentDescription = stringResource(R.string.content_desc_location),
                     tint = Color.White,
                     modifier = Modifier.size(12.dp)
                 )
                 Text(
-                    "7015.3km", // You can calculate actual distance
+                    "7015.3km",
                     color = Color.White,
                     fontSize = 11.sp
                 )
@@ -410,7 +394,6 @@ fun RaceInfoCard(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Time
             nextSession?.let { session ->
                 Text(
                     DateUtils.formatToLocalTime(session.startTime),
