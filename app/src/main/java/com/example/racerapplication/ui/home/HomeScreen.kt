@@ -43,6 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.racerapplication.R
 import com.example.racerapplication.data.model.Driver
 import com.example.racerapplication.data.model.Race
+import com.example.racerapplication.ui.components.HomeTopSlider
 import com.example.racerapplication.ui.components.LoadingIndicator
 import com.example.racerapplication.util.DateUtils
 
@@ -68,7 +69,7 @@ fun HomeScreen(
             ) {
                 // Top Driver Card
                 uiState.driver?.let { driver ->
-                    DriverCard(driver)
+                    HomeTopSlider(driver = uiState.driver)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
