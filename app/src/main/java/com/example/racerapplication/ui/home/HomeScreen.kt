@@ -236,6 +236,9 @@ fun CommunityCard() {
 @Composable
 fun RaceCard(race: Race, onClick: () -> Unit) {
     val nextSession = DateUtils.getNextSession(race.sessions)
+    val (days, hours, minutes) = nextSession?.let {
+        DateUtils.getTimeUntilSession(it.startTime)
+    } ?: Triple(0L, 0L, 0L)
 
     Box(
         modifier = Modifier
@@ -275,9 +278,9 @@ fun RaceCard(race: Race, onClick: () -> Unit) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    TimeUnit("07", "Days")
-                    TimeUnit("16", "Hours")
-                    TimeUnit("42", "Minutes")
+                    TimeUnit(days.toString().padStart(2, '0'), "Days")
+                    TimeUnit(hours.toString().padStart(2, '0'), "Hours")
+                    TimeUnit(minutes.toString().padStart(2, '0'), "Minutes")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(

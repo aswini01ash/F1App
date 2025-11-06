@@ -5,10 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Session(
-    @SerialName("session_name")
-    val sessionName: String,
-    @SerialName("start_time")
-    val startTime: String,
-    @SerialName("end_time")
-    val endTime: String
+    @SerialName("sessionName") val sessionName: String,
+    @SerialName("startTime") val startTime: Long,
+    @SerialName("endTime") val endTime: Long
 )

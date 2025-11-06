@@ -21,23 +21,19 @@ class RaceRepository {
                 Result.failure(Exception("No driver found with position 1"))
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             Result.failure(e)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getUpcomingRace(): Result<Race> = withContext(Dispatchers.IO) {
         try {
             val response = apiService.getRaces()
-            val currentTime = System.currentTimeMillis()
+            val currentTime = System.currentTimeMillis() / 1000
 
-            val upcomingRace = response.races
-                .filter { race ->
-                    parseIsoDateTime(race.raceStartTime) > currentTime
-                }
-                .minByOrNull { race ->
-                    parseIsoDateTime(race.raceStartTime)
-                }
+            val upcomingRace = response.schedule
+                .filter { race -> race.raceStartTime > currentTime }
+                .minByOrNull { race -> race.raceStartTime }
 
             if (upcomingRace != null) {
                 Result.success(upcomingRace)
@@ -45,9 +41,11 @@ class RaceRepository {
                 Result.failure(Exception("No upcoming race found"))
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             Result.failure(e)
         }
     }
+}
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun parseIsoDateTime(dateTimeString: String): Long {
@@ -57,4 +55,4 @@ class RaceRepository {
             0L
         }
     }
-}
+

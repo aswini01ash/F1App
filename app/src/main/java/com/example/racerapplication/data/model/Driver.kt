@@ -7,12 +7,20 @@ import kotlinx.serialization.Serializable
 data class DriverResponse(
     val drivers: List<Driver>
 )
+
 @Serializable
 data class Driver(
     val position: Int,
-    val name: String,
-    val team: String,
+    @SerialName("firstName") val firstName: String,
+    @SerialName("lastName") val lastName: String,
+    @SerialName("teamName") val teamName: String,
     val points: Int,
-    @SerialName("image_url")
-    val imageUrl: String?
-)
+    @SerialName("driverId") val driverId: String? = null
+) {
+    // Computed property for full name
+    val name: String
+        get() = "$firstName $lastName"
+
+    val team: String
+        get() = teamName
+}

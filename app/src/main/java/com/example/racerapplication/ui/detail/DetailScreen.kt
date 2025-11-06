@@ -21,20 +21,13 @@ import com.example.racerapplication.data.model.Session
 import com.example.racerapplication.util.DateUtils
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DetailScreen(
     race: Race?,
-    onNavigateBack: () -> Unit,
-    viewModel: DetailViewModel = viewModel()
+    onNavigateBack: () -> Unit
 ) {
-    LaunchedEffect(race) {
-        race?.let { viewModel.setRace(it) }
-    }
-
-    val currentRace by viewModel.race.collectAsState()
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,7 +46,7 @@ fun DetailScreen(
         },
         containerColor = Color(0xFF1A1A1A)
     ) { padding ->
-        currentRace?.let { raceData ->
+        race?.let { raceData ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -76,7 +69,7 @@ fun DetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    DateUtils.formatToDate(raceData.raceStartTime),
+                    DateUtils.formatToDateRange(raceData.raceStartTime, raceData.raceEndTime),
                     color = Color.White.copy(alpha = 0.8f),
                     fontSize = 16.sp
                 )
@@ -106,7 +99,7 @@ fun DetailScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    "The ${raceData.circuitId} is one of the most challenging circuits in Formula 1. " +
+                    "The ${raceData.circuitId} is one of the most iconic circuits in Formula 1. " +
                             "It features a mix of high-speed straights and technical corners that test both " +
                             "driver skill and car setup. The circuit has been modified several times over the " +
                             "years to improve safety and racing quality.",

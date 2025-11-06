@@ -5,16 +5,16 @@ import kotlinx.serialization.Serializable
 
 
 data class RaceResponse(
-    val races: List<Race>
+    val schedule: List<Race>
 )
 
 @Serializable
 data class Race(
     val round: Int,
-    @SerialName("race_name") val raceName: String,
-    @SerialName("circuit_id") val circuitId: String,
-    @SerialName("race_start_time") val raceStartTime: String,
-    @SerialName("race_end_time") val raceEndTime: String,
-    val sessions: List<Session>
+    @SerialName("raceName") val raceName: String,
+    @SerialName("circuitId") val circuitId: String,
+    @SerialName("raceStartTime") val raceStartTime: Long,
+    @SerialName("raceEndTime") val raceEndTime: Long,
+    val sessions: List<Session>,
+    @SerialName("raceState") val raceState: String? = null
 )
-
