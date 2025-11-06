@@ -33,3 +33,12 @@ cd f1-app
 
 4. Run the app on an emulator or physical device (Android 7.0+ / API 24+)
 
+## Screen Shorts
+
+
+
+
+![Home1](https://github.com/user-attachments/assets/8acfb9b3-156a-4c71-aa34-2857201c0f6f)
+![Home 2](https://github.com/user-attachments/assets/95ee44a9-06d2-4109-b894-3f3f9ce39810)
+![Details](https://github.com/user-attachments/assets/3987b9d5-2029-4d2b-9d6f-708de1abcb20)
+![Education](https://github.com/user-attachments/assets/5e2e944f-ce6d-4fc6-ab53-deae01d09644)
