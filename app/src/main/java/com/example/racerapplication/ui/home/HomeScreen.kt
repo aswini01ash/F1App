@@ -259,14 +259,14 @@ fun DriverCard(driver: Driver) {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFFF8A3D),
-                        Color(0xFFFF6B00)
+                        Color(0x0F333131)
                     )
                 )
             )
     ) {
         // Driver image background
         Image(
-            painter = painterResource(id = R.drawable.driver_placeholder),
+            painter = painterResource(id = R.drawable.person),
             contentDescription = "Driver",
             modifier = Modifier
                 .align(Alignment.CenterEnd)
