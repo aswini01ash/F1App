@@ -23,9 +23,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,9 +40,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.racerapplication.R
 import com.example.racerapplication.data.model.Driver
 import com.example.racerapplication.data.model.Race
-import com.example.racerapplication.R
 import com.example.racerapplication.ui.components.LoadingIndicator
 import com.example.racerapplication.util.DateUtils
 
@@ -81,59 +78,79 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Upcoming Race Info Card
+                    // Left side: Race Info Card
                     uiState.race?.let { race ->
                         RaceInfoCard(
                             race = race,
                             onClick = { onNavigateToDetail(race) },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(120.dp) // match combined height of two right-side cards + spacing
                         )
                     }
 
-                    // Formula 1 Education Card
-                    Box(
+                    // Right side: Column with Distance and Education
+                    Column(
                         modifier = Modifier
-                            .weight(1f)
-                            .height(120.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFF2563EB))
-                            .clickable {
-                                val intent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://blog.boxbox.club/tagged/beginners-guide")
-                                )
-                                context.startActivity(intent)
-                            }
-                            .padding(12.dp),
-                        contentAlignment = Alignment.Center
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_education),
-                                contentDescription = "Education",
-                                tint = Color.White,
-                                modifier = Modifier.size(32.dp)
+                        uiState.race?.let { race ->
+                            RaceDistanceCard(
+                                race = race,
+                                onClick = { onNavigateToDetail(race) },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(55.dp)
                             )
-                            Column {
-                                Text(
-                                    "Formula 1",
-                                    color = Color.White,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
+                        }
+
+                        // Formula 1 Education Card
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(55.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(Color(0xFF2563EB))
+                                .clickable {
+                                    val intent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("https://blog.boxbox.club/tagged/beginners-guide")
+                                    )
+                                    context.startActivity(intent)
+                                }
+                                .padding(4.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_education_icon),
+                                    contentDescription = "Education",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(16.dp)
                                 )
-                                Text(
-                                    "Education",
-                                    color = Color.White,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                Column {
+                                    Text(
+                                        "Formula 1",
+                                        color = Color.White,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(
+                                        "Education",
+                                        color = Color.White,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                             }
                         }
                     }
                 }
+
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -191,18 +208,68 @@ fun HomeScreen(
                             modifier = Modifier.height(32.dp)
                         )
                     }
-
-                    // Instagram icon
-//                    Icon(
-//                        painter = painterResource(id = R.drawable.ic_instagram),
-//                        contentDescription = "Instagram",
-//                        tint = Color.White,
-//                        modifier = Modifier
-//                            .align(Alignment.BottomEnd)
-//                            .padding(16.dp)
-//                            .size(24.dp)
-//                    )
                 }
+            }
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun RaceDistanceCard(
+    race: Race,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .height(55.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = onClick)
+    ) {
+        // Background split (red/black)
+        Row(Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .weight(0.4f)
+                    .fillMaxHeight()
+                    .background(Color(0xFFE10600))
+            )
+            Box(
+                modifier = Modifier
+                    .weight(0.6f)
+                    .fillMaxHeight()
+                    .background(Color.Black)
+            )
+        }
+
+        // Foreground content
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.km_icon),
+                contentDescription = "Distance Icon",
+                tint = Color.White,
+                modifier = Modifier.size(22.dp)
+            )
+
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    "7015.3km",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+//                Text(
+//                    "km",
+//                    color = Color.White.copy(alpha = 0.7f),
+//                    fontSize = 12.sp
+//                )
             }
         }
     }
@@ -380,19 +447,5 @@ fun RaceInfoCard(
                 )
             }
         }
-    }
-}
-
-@Composable
-fun LoadingIndicator() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            color = Color(0xFFFF6B00)
-        )
     }
 }
