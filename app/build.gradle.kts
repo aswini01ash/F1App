@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
+//    alias(libs.plugins.hilt)
+//    alias(libs.plugins.ksp)
 }
 
 android {
@@ -64,14 +64,16 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.kotlinx.serialization)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.coil.compose)
     implementation(libs.navigation.compose)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-    implementation(libs.hilt.navigation.compose)
+//
+//    implementation(libs.hilt.android)
+//    ksp(libs.hilt.android.compiler)
+//    implementation(libs.hilt.navigation.compose)
 
 }

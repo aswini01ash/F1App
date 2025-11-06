@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">RacerApplication</string>
+
+    <!-- Home Screen -->
+    <string name="pts">PTS</string>
+    <string name="education">Education</string>
+    <string name="follow_us">Follow Us</string>
+    <string name="upcoming_race">Upcoming race</string>
+    <string name="formula_1">Formula 1</string>
+    <string name="distance_placeholder">7015.3</string>
+    <string name="km">km</string>
+
+    <!--Details screen-->
+    <string name="circuit">Circuit</string>
+    <string name="circuit_facts">Circuit Facts</string>
+    <string name="sessions">Sessions</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_desc_education">Education</string>
+    <string name="content_desc_circuit">Circuit</string>
+    <string name="content_desc_distance">Distance</string>
+    <string name="content_desc_location">Location</string>
 </resources>
