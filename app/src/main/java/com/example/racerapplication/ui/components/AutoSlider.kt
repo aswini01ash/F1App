@@ -1,7 +1,6 @@
 package com.example.racerapplication.ui.components
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -35,35 +34,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.example.racerapplication.R
 import com.example.racerapplication.data.model.Driver
 import com.example.racerapplication.ui.home.DriverCard
 import kotlinx.coroutines.delay
-import androidx.core.net.toUri
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AutoSlider(
-    itemCount: Int,
-    content: @Composable (Int) -> Unit
-) {
-    val pagerState = rememberPagerState(pageCount = { itemCount })
-
-    LaunchedEffect(pagerState) {
-        while (true) {
-            delay(3000)
-            val nextPage = (pagerState.currentPage + 1) % itemCount
-            pagerState.animateScrollToPage(nextPage)
-        }
-    }
-
-    HorizontalPager(
-        state = pagerState,
-        modifier = Modifier.fillMaxWidth()
-    ) { page ->
-        content(page)
-    }
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)

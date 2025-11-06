@@ -259,7 +259,7 @@ fun DriverCard(driver: Driver) {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFFF8A3D),
-                        Color(0x0F333131)
+                        Color(0x0F363535)
                     )
                 )
             )
@@ -364,7 +364,7 @@ fun RaceInfoCard(
         modifier = modifier
             .height(120.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(Color(0xFF047857))
+            .background(Color(0xFF044331))
             .clickable(onClick = onClick)
             .padding(12.dp)
     ) {

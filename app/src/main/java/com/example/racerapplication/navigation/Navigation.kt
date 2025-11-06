@@ -58,7 +58,6 @@ fun F1Navigation() {
 
             DetailScreen(
                 race = race,
-                onNavigateBack = { navController.popBackStack() }
             )
         }
     }
